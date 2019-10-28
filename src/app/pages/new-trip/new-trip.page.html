@@ -1,0 +1,163 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    <ion-title>newTrip</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="loading">
+        <ion-spinner name="circles"></ion-spinner>
+    </div>
+  <div *ngIf="!loading">
+      <form [formGroup]="newTripForm">
+          <ion-grid>
+            <div class="form-group input-field">
+              <ion-row>
+                <label for="nome">Nome</label>
+              </ion-row>
+              <ion-row>
+                <input type="text" class="form-control" name="name" id="name" formControlName="name">
+              </ion-row>
+            </div>
+    
+            <div class="form-group input-field">
+                <ion-row>
+                  <label for="nome">Origem</label>
+                </ion-row>
+                <ion-row>
+                  <input type="text" class="form-control" name="origin" id="origin" formControlName="origin">
+                </ion-row>
+              </div>
+    
+              <div class="form-group input-field">
+                  <ion-row>
+                    <label for="nome">Quantas pessoas vão viajar com você?</label>
+                  </ion-row>
+                  <ion-row>
+                    <select class="form-control" name="passengers" formControlName="passengers">
+                        <option>
+                          1
+                        </option>
+                        <option>
+                          2
+                        </option>
+                        <option>
+                          3
+                        </option>
+                        <option>
+                          4
+                        </option>
+                        <option>
+                          5
+                        </option>
+                        <option>
+                          6
+                        </option>
+                        <option>
+                          7
+                        </option>
+                        <option>
+                          8
+                        </option>
+                        <option>
+                          9
+                       </option>
+                       <option>
+                          10
+                       </option>
+                    </select>
+                  </ion-row>
+                </div>
+                
+                <div *ngFor="let destination of destinations; let i = index">
+                    <ion-card (click)="addDestination(i)">
+                      <ion-row>
+                        <ion-col size="4">
+                          <ion-row>
+                              <p class="label">
+                                Destino
+                              </p>
+                            </ion-row>
+                            <ion-row>
+                              <p> {{destination.name}}</p>
+                            </ion-row>
+                        </ion-col>
+                        <ion-col size="4">
+                          <ion-row>
+                              <p class="label">
+                                Preço
+                              </p>
+                            </ion-row>
+                          <ion-row>
+                            <p>{{destination.price}}</p>
+                          </ion-row>
+                        </ion-col>
+                        <ion-col size="4">
+                          <ion-row>
+                              <p class="label">
+                                Transporte
+                              </p>
+                            </ion-row>
+                          <ion-row>
+                            <p>{{destination.type}}</p>
+                          </ion-row>
+                        </ion-col>
+                      </ion-row>
+                    </ion-card>
+                </div>
+                <ion-row *ngIf="!newDestinationForm">
+                  <button ion-button block type="submit" (click)="addDestination()">Adicionar Destino</button>
+                </ion-row>              
+  
+                  <form [formGroup]="newDestination" *ngIf="openForm; else noForm">
+                    <div class="form-group input-field">
+                        <ion-row>
+                          <label for="nome">Destino</label>
+                        </ion-row>
+                        <ion-row>
+                          <input type="text" class="form-control" name="name" id="name" formControlName="name">
+                        </ion-row>
+                    </div>
+                    
+                    <div class="form-group input-field">
+                        <ion-row>
+                          <label for="nome">Preço</label>
+                        </ion-row>
+                        <ion-row>
+                          <input type="text" class="form-control" name="price" id="price" formControlName="price">
+                        </ion-row>
+                    </div>
+                    <div class="form-group input-field">
+                        <ion-row>
+                          <label for="nome">Transporte</label>
+                        </ion-row>
+                        <ion-row>
+                          <select class="form-control" name="type" formControlName="type">
+                              <option>
+                                Onibus
+                              </option>
+                              <option>
+                                Avião
+                              </option>
+                              <option>
+                                Carro
+                              </option>
+                          </select>
+                        </ion-row>
+                      </div>
+                      <ion-row *ngIf="openForm">
+                        <button ion-button block type="submit" (click)="saveDestination()">Salvar Destino</button>
+                      </ion-row>
+                  </form>
+                <ion-row>
+                  <button ion-button block type="submit" (click)="saveTrip()">Salvar Viagem</button>
+                </ion-row>
+            </ion-grid>
+          </form>
+  </div>
+    
+
+</ion-content>

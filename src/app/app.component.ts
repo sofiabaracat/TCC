@@ -20,7 +20,18 @@ export class AppComponent {
       title: 'List',
       url: '/list',
       icon: 'list'
+    },
+    {
+      title: 'Viagens',
+      url: '/trips',
+      icon: './../assets/icon/suitcase.svg'
+    },
+    {
+      title: 'Adicionar',
+      url: '/new-trip/:0 ',
+      icon: 'plus'
     }
+    
   ];
 
   constructor(

@@ -1,0 +1,139 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    <ion-title>trips</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="loading; else loadingOff">
+      <ion-spinner name="circles"></ion-spinner>
+  </div>
+  <ng-template #loadingOff>
+    <div *ngIf="tripArray.length > 0; else noTrip">
+      <div *ngFor="let trip of tripArray">
+        <ion-card (click)="details(trip.key)">
+            <ion-card-header>
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="8">
+                    <ion-card-title>{{trip.name}}</ion-card-title>
+                  </ion-col>
+                  <ion-col size="2">
+                      <ion-icon (click)="edit(trip.key)" class="icon" name="md-create"></ion-icon>
+                  </ion-col>
+                  <ion-col size="2">
+                      <ion-icon class="icon" name="md-trash" (click)="delete(trip.key)"></ion-icon>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+              </ion-card-header>
+              <ion-row>
+                <ion-col size="6">
+                  <ion-row>
+                    <p class="label">
+                      Origem
+                    </p>
+                  </ion-row>
+                  <ion-row>
+                    <p> {{trip.origin}}</p>
+                  </ion-row>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-row>
+                      <p class="label">
+                        Destinos
+                      </p>
+                    </ion-row>
+              <div *ngFor="let destination of trip.destination">
+                  <ion-row>
+                    {{destination.name}}
+                  </ion-row>
+              </div>
+                </ion-col>
+              </ion-row>
+          <ion-row>
+              <p class="label">
+                Preço Total
+              </p>
+            </ion-row>
+            <ion-row>
+              <p>R$ {{(trip.totalPrice)}}</p>
+            </ion-row>
+            <ion-row>
+              <div class="center">
+                <br>
+                <p *ngIf="!trip.details"> 
+                  Ver mais detalhes 
+                  <ion-icon name="arrow-down" class="icon"></ion-icon>
+                </p>
+              </div>
+            </ion-row>
+            <div *ngIf="trip.details">
+              <div *ngFor="let destination of trip.destination">
+                  <ion-list>
+                    <ion-item>
+                        <ion-row>
+                            <ion-col size="4">
+                              <ion-row>
+                                  <p class="label">
+                                    Destino
+                                  </p>
+                                </ion-row>
+                                <ion-row>
+                                  <p> {{destination.name}}</p>
+                                </ion-row>
+                            </ion-col>
+                            <ion-col size="4">
+                              <ion-row>
+                                  <p class="label">
+                                    Preço
+                                  </p>
+                                </ion-row>
+                              <ion-row>
+                                <p>{{destination.price}}</p>
+                              </ion-row>
+                            </ion-col>
+                            <ion-col size="4">
+                              <ion-row>
+                                  <p class="label">
+                                    Transporte
+                                  </p>
+                                </ion-row>
+                              <ion-row>
+                                <p>{{destination.type}}</p>
+                              </ion-row>
+                            </ion-col>
+                          </ion-row>
+                    </ion-item>
+                  </ion-list>
+                </div>
+            </div>
+            <ion-row>
+                <div class="center">
+                  <br>
+                  <p *ngIf="trip.details"> 
+                      Fechar detalhes  
+                      <ion-icon name="arrow-up" class="icon"></ion-icon>
+                  </p>
+                </div>
+              </ion-row>
+        </ion-card>
+      </div>
+    </div>
+    <ng-template #noTrip>
+      <p>Você ainda não possui nenhuma viagem</p>
+    </ng-template>
+  </ng-template>
+  
+  <!-- <app-destination-card></app-destination-card> -->
+
+</ion-content>
+
+<ion-footer>
+    <ion-row>
+      <ion-button href="/new-trip/:0" class="button">Adicionar Viagem</ion-button>
+    </ion-row>
+</ion-footer>
